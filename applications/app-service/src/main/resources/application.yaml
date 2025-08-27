@@ -20,12 +20,23 @@ management:
     health:
       probes:
         enabled: true
+  #r2dbc:
+   #   url: r2dbc:mysql://root:root@localhost:3360/crediya_autenticacion?sslMode=REQUIRED
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+    operationsSorter: method
+    tagsSorter: alpha
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
 adapters:
   r2dbc:
       host: "localhost"
-      port: 3306
+      port: 3360
       database: "crediya_autenticacion"
       username: "root"
       password: "root"
+
+

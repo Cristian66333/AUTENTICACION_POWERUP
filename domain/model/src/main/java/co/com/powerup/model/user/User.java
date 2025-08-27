@@ -1,5 +1,7 @@
 package co.com.powerup.model.user;
+import co.com.powerup.model.rol.Rol;
 import lombok.*;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,6 +15,7 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 public class User {
     private String id;
+    private String citizenId;
     private String name;
     private String lastName;
     private LocalDate birthDate;
@@ -20,5 +23,6 @@ public class User {
     private String phoneNumber;
     private String email;
     private BigDecimal baseSalary;
+    private Long idRol;
 
 }

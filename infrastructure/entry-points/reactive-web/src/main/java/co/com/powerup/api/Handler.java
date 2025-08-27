@@ -8,6 +8,8 @@ import co.com.powerup.usecase.user.UserUseCase;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -21,16 +23,21 @@ public class Handler {
 
     private final UserUseCase userUseCase;
     private final Validator validator;
+    private final Logger log = LoggerFactory.getLogger(Handler.class);
 
     public Mono<ServerResponse> listenPostSaveUser(ServerRequest serverRequest) {
-
+        log.info("[LISTEN POST SAVE USER REQUEST]");
         return serverRequest.bodyToMono(UserDTO.class)
-                //.flatMap(this::validate)
+                .flatMap(this::validate)
                 .map(UserMapper::toDomain)
                 .flatMap(userUseCase::saveUser)
                 .flatMap(savedUser -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .bodyValue(savedUser));
+                        .bodyValue(savedUser))
+                .doOnSuccess(response -> log.info("A user was saved successfully"))
+                .doOnError(e -> log.error("Save user error: " + e.getMessage()));//TODO logs: log?
+                //.onErrorResume(Exception.class,error->ServerResponse.badRequest().bodyValue(error.getMessage()));// TODO excepciones?
+
     }
     private <T> Mono<T> validate(T body) {
         var violations = validator.validate(body);

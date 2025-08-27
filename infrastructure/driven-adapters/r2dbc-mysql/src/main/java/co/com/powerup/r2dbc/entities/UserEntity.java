@@ -3,11 +3,14 @@ package co.com.powerup.r2dbc.entities;
 
 
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import co.com.powerup.model.rol.Rol;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.*;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,6 +26,8 @@ public class UserEntity {
     @Column("id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column("documento_identidad")
+    private String citizenId;
     @Column("nombre")
     private String name;
     @Column("apellido")
@@ -37,4 +42,6 @@ public class UserEntity {
     private String email;
     @Column("salario_base")
     private BigDecimal baseSalary;
+    @Column("id_rol")
+    private Long idRol;
 }

@@ -29,7 +29,7 @@ public class MysqlConnectionPool {
                 .database(properties.database())
                 .username(properties.username())
                 .password(properties.password())
-                .sslMode(SslMode.DISABLED)
+                .sslMode(SslMode.REQUIRED)
                 //.connectTimeout(Duration.ofSeconds(5))               // opcional: timeout de conexión
                 // .useServerPrepareStatement()                         // opcional: prepared stmts del lado servidor
                 //.createDatabaseIfNotExist()                          // opcional: crea BD si no existe// Cambia a REQUIRED si usas TLS

@@ -2,6 +2,7 @@ package co.com.powerup.api.mappers;
 
 
 import co.com.powerup.api.dto.UserDTO;
+import co.com.powerup.model.rol.Rol;
 import co.com.powerup.model.user.User;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ public class UserMapper {
     public static User toDomain(UserDTO userDTO){
         return User.builder()
                 .id(userDTO.id())
+                .citizenId(userDTO.citizenId())
                 .email(userDTO.email())
                 .name(userDTO.name())
                 .lastName(userDTO.lastName())
@@ -17,6 +19,7 @@ public class UserMapper {
                 .birthDate(userDTO.birthDate())
                 .baseSalary(userDTO.baseSalary())
                 .phoneNumber(String.valueOf(userDTO.phoneNumber()))
+                .idRol(userDTO.idRol())
                 .build();
     }
 

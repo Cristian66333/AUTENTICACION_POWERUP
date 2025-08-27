@@ -9,6 +9,6 @@ import reactor.core.publisher.Mono;
 public interface UserReactiveRepository extends ReactiveCrudRepository<UserEntity, String>, ReactiveQueryByExampleExecutor<UserEntity> {
     public Mono<UserEntity> findUserByEmail(String email);
 
-    public Mono<Boolean> existsByIdAndEmail(String idNumber, String email);
+    public Mono<Boolean> existsByEmail(String email);
 
 }
