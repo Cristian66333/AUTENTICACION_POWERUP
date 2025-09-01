@@ -40,6 +40,8 @@ public class UserEntity {
     private String phoneNumber;
     @Column("correo")
     private String email;
+    @Column("password")
+    private String password;
     @Column("salario_base")
     private BigDecimal baseSalary;
     @Column("id_rol")

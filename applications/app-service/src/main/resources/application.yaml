@@ -39,4 +39,8 @@ adapters:
       username: "root"
       password: "root"
 
-
+logging:
+  level:
+    org:
+      springframework:
+        security=DEBUG:

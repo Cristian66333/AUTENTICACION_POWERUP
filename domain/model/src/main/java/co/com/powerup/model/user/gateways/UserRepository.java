@@ -7,6 +7,9 @@ public interface UserRepository {
 
     Mono<User> saveUser(User user);
 
-
     Mono<Boolean> existsByEmail(String email);
+
+    Mono<User> findUserById(String id);
+
+    Mono<User> findUserByEmail(String email);
 }
