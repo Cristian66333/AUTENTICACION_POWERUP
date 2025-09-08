@@ -9,6 +9,8 @@ import co.com.powerup.usecase.user.exceptions.UserExistsException;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 @RequiredArgsConstructor
 public class UserUseCase {
     private final UserRepository userRepository;
@@ -47,6 +49,8 @@ public class UserUseCase {
         return userRepository.findUserById(id)
                 .switchIfEmpty(Mono.error(new UserExistsException("User does not exist")));
     }
+
+
 
 
 }

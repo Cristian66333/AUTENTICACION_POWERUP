@@ -4,6 +4,8 @@ package co.com.powerup.api.docs;
 import co.com.powerup.api.Handler;
 import co.com.powerup.api.dto.UserDTO;
 import co.com.powerup.api.errorHandler.ApiError; // si tienes este modelo para errores
+import co.com.powerup.model.auth.LoginCommand;
+import co.com.powerup.model.auth.TokenResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -77,5 +79,42 @@ public class ApiRoutes {
     })
     public RouterFunction<ServerResponse> userRouter(Handler handler) {
         return route(POST("/api/v1/usuarios").and(accept(MediaType.APPLICATION_JSON)), handler::listenPostSaveUser);
+    }
+
+    @Bean
+    @RouterOperations({
+            @RouterOperation(
+                    path = "/api/v1/login",
+                    method = org.springframework.web.bind.annotation.RequestMethod.POST,
+                    beanClass = Handler.class,
+                    beanMethod = "listenPostLogin",
+                    operation = @Operation(
+                            operationId = "login",
+                            summary = "Inicio de sesión usuarios",
+                            description = "Inicia sesión de usuario a partir del rol y devuelve un JWT",
+                            requestBody = @RequestBody(
+                                    required = true,
+                                    content = @Content(mediaType = "application/json",
+                                            schema = @Schema(implementation = LoginCommand.class))
+                            ),
+                            responses = {
+                                    @ApiResponse(
+                                            responseCode = "200",
+                                            description = "Inicio de sesión exitoso",
+                                            content = @Content(mediaType = "application/json",
+                                                    schema = @Schema(implementation = TokenResponse.class))
+                                    ),
+                                    @ApiResponse(
+                                            responseCode = "400",
+                                            description = "Credenciales incorrectas",
+                                            content = @Content(mediaType = "application/json",
+                                                    schema = @Schema(implementation = ApiError.class))
+                                    )
+                            }
+                    )
+            )
+    })
+    public RouterFunction<ServerResponse> login(Handler handler) {
+        return route(POST("/api/v1/login").and(accept(MediaType.APPLICATION_JSON)), handler::listenPostLogin);
     }
 }

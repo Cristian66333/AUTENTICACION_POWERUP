@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  r2dbc:
+    host: "localhost"
+    port: 3360
+    database: "crediya_autenticacion"
+    username: "root"
+    password: "root"
+
+# Si validas/firmas JWT con HS256 (secreto compartido con SOLICITUDES)
+security:
+  jwt:
+    secret: ${SECURITY_JWT_SECRET:super-secret-de-demo}
+    ttl-seconds: ${SECURITY_JWT_TTL:3600}
+
+logging:
+  level:
+    root: INFO

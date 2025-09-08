@@ -5,10 +5,11 @@ import co.com.powerup.model.user.gateways.UserRepository;
 import co.com.powerup.r2dbc.entities.UserEntity;
 import co.com.powerup.r2dbc.helper.ReactiveAdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
-import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
+
+import java.util.Map;
+import java.util.Set;
 
 @Repository
 public class UserReactiveRepositoryAdapter extends ReactiveAdapterOperations<
@@ -49,4 +50,5 @@ public class UserReactiveRepositoryAdapter extends ReactiveAdapterOperations<
     public Mono<User> findUserByEmail(String email) {
         return repository.findUserByEmail(email);
     }
+
 }

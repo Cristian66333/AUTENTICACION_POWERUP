@@ -3,6 +3,9 @@ package co.com.powerup.model.user.gateways;
 import co.com.powerup.model.user.User;
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+import java.util.Set;
+
 public interface UserRepository {
 
     Mono<User> saveUser(User user);
@@ -12,4 +15,5 @@ public interface UserRepository {
     Mono<User> findUserById(String id);
 
     Mono<User> findUserByEmail(String email);
+
 }

@@ -31,6 +31,8 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
                         .pathMatchers(HttpMethod.POST, "/api/v1/usuarios").hasAnyRole("ADMIN","ASESOR")
                         .pathMatchers(HttpMethod.GET, "/api/v1/usuarios/**").hasAnyRole("ADMIN","ASESOR","CLIENTE")
+                        .pathMatchers(HttpMethod.GET,"/swagger-ui/**").permitAll()
+                        .pathMatchers(HttpMethod.GET,"/v3/api-docs/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth -> oauth
@@ -38,13 +40,13 @@ public class SecurityConfig {
                 )
                 .build();
     }
-    // Decodificador HS256 (mismo secret que firmas)
+
     @Bean
     public ReactiveJwtDecoder jwtDecoder() {
         return NimbusReactiveJwtDecoder.withSecretKey(SECRET).build();
     }
 
-    // Tomar authorities desde claim "roles" que ya trae "ROLE_*"
+
     private Converter<Jwt, Mono<AbstractAuthenticationToken>> jwtAuthConverter() {
         JwtGrantedAuthoritiesConverter ga = new JwtGrantedAuthoritiesConverter();
         ga.setAuthoritiesClaimName("roles");
